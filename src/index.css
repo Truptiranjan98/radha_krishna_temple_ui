@@ -1,0 +1,458 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Palette: "Divine Waters & Purity" — pure white and a soft icy-aqua
+   wash over a deep midnight-blue ink, with slate grey for secondary
+   text and a little temple gold kept for sparing, sacred accents
+   (Puja/festival badges, the puja-panel button). Calmer and cooler
+   than anything this app has worn before: white and blue read as
+   "clean" rather than "warm," on purpose.
+
+   Icy Aqua itself (#C5F8FC) is almost white, so it is used verbatim
+   only for light washes and glows (peacock-300) — everything that
+   needs to carry a link, an active state, or hold its own as small
+   text is a deepened teal drawn from the same hue (peacock-600/500),
+   which is what keeps "this is clickable" legible against plain white
+   and distinct from ordinary ink.
+------------------------------------------------------------------ */
+@theme {
+  --color-night-950: #10192e;
+  --color-night-900: #1b2a4a;
+  --color-night-800: #24365c;
+  --color-night-700: #3a517f;
+
+  --color-peacock-600: #0f7c8c;
+  --color-peacock-500: #3fa0ac;
+  --color-peacock-300: #c5f8fc;
+
+  --color-marigold-500: #d4af37;
+  --color-marigold-300: #e8ce7c;
+
+  --color-rose-temple: #b84a4a;
+
+  --color-paper: #ffffff;
+  --color-paper-raised: #f0fafb;
+  --color-muted: #64748b;
+  --color-hairline: #e2e8f0;
+
+  --font-display: "Marcellus", ui-serif, Georgia, serif;
+  --font-body: "Karla", ui-sans-serif, system-ui, sans-serif;
+  --font-om: "Yatra One", "Noto Sans Devanagari", ui-serif, serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-paper);
+    color: var(--color-night-900);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-peacock-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-marigold-300);
+    color: var(--color-night-950);
+  }
+}
+
+@layer components {
+  /* The signature: a torana arch. Photo frames and the auth card are
+     cut with a temple doorway silhouette instead of a plain rectangle. */
+  .arch {
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+  }
+
+  /* Mor-pankh rail: indigo bleeding into peacock then marigold, the
+     colour run of a real peacock feather. Used as a hairline only. */
+  .rail {
+    background-image: linear-gradient(
+      to bottom,
+      var(--color-night-800) 0%,
+      var(--color-peacock-600) 45%,
+      var(--color-peacock-300) 70%,
+      var(--color-marigold-500) 100%
+    );
+  }
+
+  .rail-h {
+    background-image: linear-gradient(
+      to right,
+      var(--color-night-800) 0%,
+      var(--color-peacock-600) 45%,
+      var(--color-peacock-300) 70%,
+      var(--color-marigold-500) 100%
+    );
+  }
+
+  .card {
+    background: var(--color-paper-raised);
+    border: 1px solid var(--color-hairline);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 2px rgba(16, 25, 46, 0.04), 0 10px 26px -20px rgba(16, 25, 46, 0.35);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.6rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.7rem 1.1rem;
+    transition: background-color 0.15s ease, opacity 0.15s ease, transform 0.1s ease;
+    cursor: pointer;
+    /* comfortable thumb target on phones */
+    min-height: 44px;
+  }
+
+  .btn:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  /* Filled buttons get a hairline inset shadow along the bottom edge —
+     a letterpress touch rather than a flat fill. */
+  .btn-primary {
+    background: var(--color-night-900);
+    color: #fff;
+    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.18);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-night-800);
+  }
+
+  /* This is the app's actual primary-action button — "Book a puja", every
+     form submit, "Sign in" — so it gets the deep midnight-blue fill the
+     brief asks for, with a soft icy-aqua halo standing in for the
+     "subtle glow or outline" it specifically calls for. */
+  .btn-peacock {
+    background: var(--color-night-900);
+    color: #fff;
+    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.18), 0 0 0 3px rgba(197, 248, 252, 0.35);
+  }
+  .btn-peacock:hover:not(:disabled) {
+    background: var(--color-night-800);
+  }
+
+  .btn-quiet {
+    background: transparent;
+    color: var(--color-night-900);
+    border: 1px solid var(--color-hairline);
+  }
+  .btn-quiet:hover:not(:disabled) {
+    background: var(--color-paper-raised);
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .field {
+    width: 100%;
+    border: 1px solid var(--color-hairline);
+    background: var(--color-paper-raised);
+    border-radius: 0.6rem;
+    padding: 0.7rem 0.85rem;
+    font-size: 1rem; /* 16px stops iOS zooming the page on focus */
+    font-family: var(--font-body);
+    color: var(--color-night-900);
+    min-height: 44px;
+    box-shadow: inset 0 1px 2px rgba(16, 25, 46, 0.04);
+  }
+  .field::placeholder {
+    color: #94a3b8;
+  }
+
+  /* A <select> carrying .field would otherwise keep the platform's own
+     control chrome and sit a few pixels short of the text inputs beside it.
+     The arrow is an inline SVG so it needs no extra asset request. */
+  select.field {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 2.25rem;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2364748b'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1.15rem;
+  }
+
+  /* The sacred syllable — a small glowing devotional mark. Used once, on
+     the admin sign-in page, rather than sprinkled everywhere. */
+  .om-mark {
+    font-family: var(--font-om);
+    font-weight: 400;
+    background-image: linear-gradient(
+      180deg,
+      var(--color-peacock-300) 0%,
+      var(--color-marigold-300) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 22px rgba(197, 248, 252, 0.55));
+  }
+
+  .eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 600;
+  }
+}
+
+/* ==================================================================
+   The intro curtain — floating mor-pankh over a night sky.
+   Component: components/FeatherIntro.jsx
+================================================================== */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(120% 90% at 50% 108%, rgba(15, 124, 140, 0.4) 0%, transparent 62%),
+    linear-gradient(170deg, var(--color-night-950) 0%, var(--color-night-900) 55%, var(--color-night-800) 100%);
+  transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1),
+              transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* The curtain lifts rather than simply fading — it reads as a reveal. */
+.intro-lifting {
+  opacity: 0;
+  transform: translateY(-2.5%) scale(1.04);
+  pointer-events: none;
+}
+
+.intro-rail {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 3px;
+  background-image: linear-gradient(
+    to right,
+    var(--color-night-800) 0%,
+    var(--color-peacock-600) 45%,
+    var(--color-peacock-300) 70%,
+    var(--color-marigold-500) 100%
+  );
+  transform-origin: left;
+  animation: intro-rail 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes intro-rail {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.intro-sky {
+  position: absolute;
+  inset: 0;
+}
+
+/* Each feather rises from below the fold, drifts sideways and turns.
+   --drift, --spin and --peak are set per-feather from JS. */
+.intro-feather {
+  position: absolute;
+  bottom: -22vh;
+  height: auto;
+  animation-name: intro-rise;
+  animation-timing-function: cubic-bezier(0.33, 0, 0.3, 1);
+  animation-fill-mode: forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes intro-rise {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg);                    opacity: 0; }
+  18%  {                                                                  opacity: var(--peak); }
+  75%  {                                                                  opacity: var(--peak); }
+  100% { transform: translate3d(var(--drift), -128vh, 0) rotate(var(--spin)); opacity: 0; }
+}
+
+.intro-plate {
+  position: relative;
+  text-align: center;
+  padding: 0 1.5rem;
+}
+
+.intro-mark {
+  width: 82px;
+  height: auto;
+  margin: 0 auto 1.1rem;
+  filter: drop-shadow(0 8px 26px rgba(63, 160, 172, 0.45));
+  animation: intro-mark 1.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes intro-mark {
+  from { opacity: 0; transform: translateY(16px) scale(0.82) rotate(-8deg); }
+  to   { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+}
+
+.intro-name {
+  font-family: var(--font-display);
+  color: #fff;
+  font-size: clamp(1.6rem, 6vw, 2.9rem);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  animation: intro-text 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+}
+
+.intro-sub {
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-peacock-300);
+  animation: intro-text 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
+}
+
+@keyframes intro-text {
+  from { opacity: 0; transform: translateY(14px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+/* ==================================================================
+   Ambient feathers — a much quieter version of the same idea, used
+   behind the hero so the landing page keeps a little movement.
+================================================================== */
+
+.ambient {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-feather {
+  position: absolute;
+  height: auto;
+  opacity: 0;
+  animation: ambient-drift linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes ambient-drift {
+  0%   { transform: translate3d(0, 12vh, 0) rotate(0deg);   opacity: 0; }
+  12%  {                                                     opacity: 0.16; }
+  88%  {                                                     opacity: 0.16; }
+  100% { transform: translate3d(var(--drift), -96vh, 0) rotate(var(--spin)); opacity: 0; }
+}
+
+/* ==================================================================
+   Page + section entrance. Applied to the routed view so moving
+   between Home, Calendar and Gallery has a little continuity.
+================================================================== */
+
+.page-enter {
+  animation: page-enter 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Staggered reveal for stacked cards. --i is the index. */
+.reveal {
+  animation: page-enter 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+@layer components {
+  /* A section heading with the mor-pankh hairline beneath it. */
+  .section-head {
+    position: relative;
+    padding-bottom: 0.7rem;
+  }
+  .section-head::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 3.2rem;
+    border-radius: 2px;
+    background-image: linear-gradient(
+      to right,
+      var(--color-peacock-600) 0%,
+      var(--color-marigold-500) 100%
+    );
+  }
+
+  /* Cards lift very slightly on hover. Restrained on purpose — this is a
+     temple noticeboard, not a marketing page. */
+  .card-lift {
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-peacock-300);
+    box-shadow: 0 10px 30px -18px rgba(16, 25, 46, 0.3);
+  }
+
+  .btn-marigold {
+    background: var(--color-marigold-500);
+    color: var(--color-night-950);
+    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.14);
+  }
+  .btn-marigold:hover:not(:disabled) {
+    background: var(--color-marigold-300);
+  }
+
+  /* Full-bleed night panel used by the puja call-to-action. */
+  .panel-night {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.1rem;
+    background:
+      radial-gradient(90% 140% at 88% 8%, rgba(15, 124, 140, 0.45) 0%, transparent 60%),
+      linear-gradient(150deg, var(--color-night-900) 0%, var(--color-night-800) 100%);
+    color: #fff;
+  }
+}
+
+/* One switch for everything above. The base rule already collapses
+   durations; this also stops the intro from ever mounting (see
+   FeatherIntro.jsx) and hides the purely decorative layers. */
+@media (prefers-reduced-motion: reduce) {
+  .ambient,
+  .intro-sky {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
